@@ -1,0 +1,5 @@
+__pycache__/
+fastapi/
+emotionNLP.h5
+imageModel.h5
+tokenizer.pkl
