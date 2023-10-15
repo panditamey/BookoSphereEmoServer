@@ -17,6 +17,10 @@ from PIL import Image
 import requests
 import cv2
 import os
+import google.generativeai as palm
+from dotenv import load_dotenv
+
+from utils.generateText import generate
 
 # Uncomment the below code to download the model files from google drive
 # EMOTEXT_URL="https://drive.google.com/file/d/1w3C30gSNoTaNfUPqOBGaV271M4OCJy6s/view?usp=sharing"
@@ -97,6 +101,24 @@ async def predictimage(file: UploadFile = File(...)):
     os.remove(str(file.filename))
     return {"status": "success","emotion":classes[index]}
 
+@app.post('/generatebook')
+async def generatebook(prompt: Prompt):
+    pdf,audio,imagecid_url,summary,bookName =  generate(prompt.prompt)
+    # palm.configure(api_key="AIzaSyAUfPsa_F6RlaXH3-z3Nkd46R8fFvYzu1o")
+    # response = palm.generate_text(prompt="Write a book on india in 1000 words with 5 chapters.")
+    # response = palm.generate_text(prompt=prompt.prompt)
+    # text = response.result
+    # print(response.result)
+    return {
+        "status": "success",
+        "prompt": prompt.prompt,
+        "pdf": pdf,
+        "audio": audio,
+        "description": summary,
+        "name":bookName,
+        "poster":imagecid_url
+    }
+    # return {"status": "success","data":text}
 
 if __name__ == '__main__':
     uvicorn.run(app, host='127.0.0.1', port=8000)

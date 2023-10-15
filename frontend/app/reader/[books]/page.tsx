@@ -1,6 +1,5 @@
 "use client"
 import { db, storage } from "@/app/firebase";
-import BookReader from "@/components/BookReader";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { useRouter, useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -37,24 +36,35 @@ function Reader() {
     } else {
       // docSnap.data() will be undefined in this case
       console.log("No such document!");
+      return<>
+      <h1>No Document</h1>
+      </>
     }
   }
 
   return <>
     {!fetching ?
       <div className="flex flex-col h-screen">
+        
+        
         <AudioPlayer
           autoPlay
           src={audioBook}
           onPlay={e => console.log("onPlay")}
         // other props here
         />
-        <Link className="flex self-end rounded text-white mx-5 px-2 py-2 my-1 bg-blue-300" href="/">
-          Go Back
+        <div>
+        <Link className="self-end rounded text-white mx-5 px-2 py-2 my-1 bg-blue-300" href="/">
+          Go Home
         </Link>
+        <Link className="self-end rounded text-white mx-5 px-2 py-2 my-1 bg-blue-300" target="_blank" href={audioBook}>
+          Play Audio on Next Tab
+        </Link>
+        </div>
+        
         <div className='flex-grow'>
 
-          <ReactReader
+          {/* <ReactReader
             url={book}
             location={location}
             locationChanged={(loc: string) => setLocation(loc)}
@@ -62,7 +72,13 @@ function Reader() {
               rendition.current = _rendition
               // rendition.current.themes.fontSize(largeText ? '140%' : '100%')
             }}
-          />
+          /> */}
+          <iframe
+        // src={`${book}?page=hsn#toolbar=0`}
+        src={`${book}`}
+        className="w-full h-full"
+        style={{ border: 'none' }}
+      ></iframe>
 
         </div>
       </div>
