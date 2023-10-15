@@ -44,7 +44,7 @@ function GenerateBook() {
         //     "emotion": "fear",
         //     "prompt": "I can't do it, I'm not ready to lose anything, just leave me alone"
         // }
-        fetch("http://localhost:8000/generatebook", {
+        fetch("https://panditamey-generatetextapi.hf.space/generatebook", {
             method: 'POST',
             body: JSON.stringify({
                 "prompt": p
