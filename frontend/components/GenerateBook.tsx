@@ -62,8 +62,8 @@ function GenerateBook() {
             const id = uploadGeneratedBookData(res);
             setLoadingText("Enjoy your book...");
             await new Promise(r=>setTimeout(r,2000));
-            setLoading(false);
             window.location.href = `/generated/${id}`
+            // setLoading(false);
         })
 
     }
@@ -71,7 +71,7 @@ function GenerateBook() {
         <>
             {loading &&
 
-                <div className='h-screen w-screen flex items-center justify-center bg-white absolute z-30' role="status">
+                <div className='sticky top-0 h-screen w-screen flex items-center justify-center bg-white  z-30' role="status">
                     <div className='flex flex-col items-center'>
 
                         <h1 className="text-sm font-semibold mb-5">{loadingText}</h1>
